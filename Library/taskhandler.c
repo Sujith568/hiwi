@@ -172,13 +172,21 @@ uint32_t executeSpecMeasurement(MeasurementData_t *data){
 
 uint32_t executeTempMeasurement(SendData_t *data){
 	uint32_t error = 0;
-	float temperature;
-	float humidity;
+	float temperature1;
+	float humidity1;
+	float temperature2;
+	float humidity2;
+	float temperature3;
+	float humidity3;
 	error += turnOnTemp();
 	timerDelay(1);	
-	error += SHTC3_GetTempAndHumi(&temperature,&humidity);
-	data->Measurement.humidity = humidity;
-	data->Measurement.temperature = temperature;
+	error += SHTC3_GetTempAndHumi(&temperature1,&humidity1,&temperature2,&humidity2,&temperature3,&humidity3);
+	data->Measurement.humidity1 = humidity1;
+	data->Measurement.temperature1 = temperature1;
+	data->Measurement.humidity2 = humidity2;
+	data->Measurement.temperature2 = temperature2;
+	data->Measurement.humidity3 = humidity3;
+	data->Measurement.temperature3 = temperature3;
 	error += turnOffTemp();
 	return error;
 }

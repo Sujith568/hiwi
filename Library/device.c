@@ -403,7 +403,7 @@ uint32_t initDAC(){
 //!
 //! @return 0 if everything is running correctly, else if not
 //*****************************************************************************
-uint32_t boardTest(void){
+/*uint32_t boardTest(void){
 	int i = 0;
 	//i += device_I2C_init();
 	i += turnOnDAC();
@@ -438,7 +438,7 @@ uint32_t boardTest(void){
 	i += turnOffPAM();
 	return i;
 }
-
+*/
 
 //*****************************************************************************
 //

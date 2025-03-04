@@ -3,9 +3,9 @@
 <title>Static Call Graph - [.\Objects\blankApollo.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\blankApollo.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6220000: Last Updated: Sat Feb 15 19:44:52 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6220000: Last Updated: Tue Mar  4 16:44:01 2025
 <BR><P>
-<H3>Maximum Stack Usage =       1440 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =       1456 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 __rt_entry_main &rArr; main &rArr; periodicUplink &rArr; UplinkProcess &rArr; PrepareTxFrame &rArr; LmHandlerSend &rArr; LoRaMacMcpsRequest &rArr; Send &rArr; ScheduleTx &rArr; SendFrameOnChannel &rArr; SecureFrame &rArr; LoRaMacCryptoSecureMessage &rArr; ComputeCmacB1 &rArr; SecureElementComputeAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Final &rArr; aes_encrypt &rArr; mix_sub_columns &rArr; copy_block
 <P>
@@ -433,7 +433,7 @@ Global Symbols
 <P><STRONG><a name="[363]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[95]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1440 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 1456 + Unknown Stack Size
 <LI>Call Chain = __rt_entry_main &rArr; main &rArr; periodicUplink &rArr; UplinkProcess &rArr; PrepareTxFrame &rArr; LmHandlerSend &rArr; LoRaMacMcpsRequest &rArr; Send &rArr; ScheduleTx &rArr; SendFrameOnChannel &rArr; SecureFrame &rArr; LoRaMacCryptoSecureMessage &rArr; ComputeCmacB1 &rArr; SecureElementComputeAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Final &rArr; aes_encrypt &rArr; mix_sub_columns &rArr; copy_block
 </UL>
 <BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -899,8 +899,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PrepareTxFrame
 </UL>
 
-<P><STRONG><a name="[1d6]"></a>JalapenosLppAddRelativeHumidity</STRONG> (Thumb, 160 bytes, Stack size 16 bytes, jalapenoslpp.o(.text.JalapenosLppAddRelativeHumidity))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = JalapenosLppAddRelativeHumidity
+<P><STRONG><a name="[1d6]"></a>JalapenosLppAddRelativeHumidity</STRONG> (Thumb, 306 bytes, Stack size 28 bytes, jalapenoslpp.o(.text.JalapenosLppAddRelativeHumidity))
+<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = JalapenosLppAddRelativeHumidity
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PrepareTxFrame
 </UL>
@@ -911,8 +911,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PrepareTxFrame
 </UL>
 
-<P><STRONG><a name="[1d5]"></a>JalapenosLppAddTemperature</STRONG> (Thumb, 160 bytes, Stack size 16 bytes, jalapenoslpp.o(.text.JalapenosLppAddTemperature))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = JalapenosLppAddTemperature
+<P><STRONG><a name="[1d5]"></a>JalapenosLppAddTemperature</STRONG> (Thumb, 306 bytes, Stack size 28 bytes, jalapenoslpp.o(.text.JalapenosLppAddTemperature))
+<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = JalapenosLppAddTemperature
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PrepareTxFrame
 </UL>
@@ -2610,9 +2610,9 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 352<LI>Call Chain = RegionEU868NextChannel &rArr; RegionCommonIdentifyChannels &rArr; RegionCommonUpdateBandTimeOff &rArr; UpdateTimeCredits &rArr; SetMaxTimeCredits &rArr; GetDutyCycle
 </UL>
 <BR>[Calls]<UL><LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;randr
+<LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RegionCommonCountChannels
 <LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetTimeOnAir
 <LI><a href="#[228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RegionCommonIdentifyChannels
-<LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RegionCommonCountChannels
 </UL>
 <BR>[Called By]<UL><LI><a href="#[243]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RegionNextChannel
 </UL>
@@ -2908,8 +2908,8 @@ Global Symbols
 <LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerGetCurrentTime
 </UL>
 
-<P><STRONG><a name="[25c]"></a>SHTC3_GetTempAndHumi</STRONG> (Thumb, 160 bytes, Stack size 56 bytes, shtc3.o(.text.SHTC3_GetTempAndHumi))
-<BR><BR>[Stack]<UL><LI>Max Depth = 392<LI>Call Chain = SHTC3_GetTempAndHumi &rArr; SHTC3_ReadBytesAndCrc &rArr; am_device_command_read &rArr; am_hal_iom_blocking_transfer &rArr; internal_iom_reset_on_error &rArr; am_hal_flash_delay
+<P><STRONG><a name="[25c]"></a>SHTC3_GetTempAndHumi</STRONG> (Thumb, 444 bytes, Stack size 72 bytes, shtc3.o(.text.SHTC3_GetTempAndHumi))
+<BR><BR>[Stack]<UL><LI>Max Depth = 408<LI>Call Chain = SHTC3_GetTempAndHumi &rArr; SHTC3_ReadBytesAndCrc &rArr; am_device_command_read &rArr; am_hal_iom_blocking_transfer &rArr; internal_iom_reset_on_error &rArr; am_hal_flash_delay
 </UL>
 <BR>[Calls]<UL><LI><a href="#[260]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SHTC3_CalcHumidity
 <LI><a href="#[25f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SHTC3_CalcTemperature
@@ -5002,8 +5002,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;measurementProcess
 </UL>
 
-<P><STRONG><a name="[30b]"></a>executeTempMeasurement</STRONG> (Thumb, 74 bytes, Stack size 24 bytes, taskhandler.o(.text.executeTempMeasurement))
-<BR><BR>[Stack]<UL><LI>Max Depth = 416<LI>Call Chain = executeTempMeasurement &rArr; SHTC3_GetTempAndHumi &rArr; SHTC3_ReadBytesAndCrc &rArr; am_device_command_read &rArr; am_hal_iom_blocking_transfer &rArr; internal_iom_reset_on_error &rArr; am_hal_flash_delay
+<P><STRONG><a name="[30b]"></a>executeTempMeasurement</STRONG> (Thumb, 112 bytes, Stack size 48 bytes, taskhandler.o(.text.executeTempMeasurement))
+<BR><BR>[Stack]<UL><LI>Max Depth = 456<LI>Call Chain = executeTempMeasurement &rArr; SHTC3_GetTempAndHumi &rArr; SHTC3_ReadBytesAndCrc &rArr; am_device_command_read &rArr; am_hal_iom_blocking_transfer &rArr; internal_iom_reset_on_error &rArr; am_hal_flash_delay
 </UL>
 <BR>[Calls]<UL><LI><a href="#[30d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnOffTemp
 <LI><a href="#[30c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnOnTemp
@@ -5157,7 +5157,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[96]"></a>main</STRONG> (Thumb, 60 bytes, Stack size 32 bytes, main.o(.text.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1440 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 1456 + Unknown Stack Size
 <LI>Call Chain = main &rArr; periodicUplink &rArr; UplinkProcess &rArr; PrepareTxFrame &rArr; LmHandlerSend &rArr; LoRaMacMcpsRequest &rArr; Send &rArr; ScheduleTx &rArr; SendFrameOnChannel &rArr; SecureFrame &rArr; LoRaMacCryptoSecureMessage &rArr; ComputeCmacB1 &rArr; SecureElementComputeAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Final &rArr; aes_encrypt &rArr; mix_sub_columns &rArr; copy_block
 </UL>
 <BR>[Calls]<UL><LI><a href="#[320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;periodicUplink
@@ -5252,7 +5252,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[320]"></a>periodicUplink</STRONG> (Thumb, 246 bytes, Stack size 24 bytes, periodicuplink.o(.text.periodicUplink))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1408 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 1424 + Unknown Stack Size
 <LI>Call Chain = periodicUplink &rArr; UplinkProcess &rArr; PrepareTxFrame &rArr; LmHandlerSend &rArr; LoRaMacMcpsRequest &rArr; Send &rArr; ScheduleTx &rArr; SendFrameOnChannel &rArr; SecureFrame &rArr; LoRaMacCryptoSecureMessage &rArr; ComputeCmacB1 &rArr; SecureElementComputeAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Final &rArr; aes_encrypt &rArr; mix_sub_columns &rArr; copy_block
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;am_util_stdio_printf
@@ -5800,7 +5800,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[2a3]"></a>UplinkProcess</STRONG> (Thumb, 64 bytes, Stack size 24 bytes, periodicuplink.o(.text.UplinkProcess))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1384 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 1400 + Unknown Stack Size
 <LI>Call Chain = UplinkProcess &rArr; PrepareTxFrame &rArr; LmHandlerSend &rArr; LoRaMacMcpsRequest &rArr; Send &rArr; ScheduleTx &rArr; SendFrameOnChannel &rArr; SecureFrame &rArr; LoRaMacCryptoSecureMessage &rArr; ComputeCmacB1 &rArr; SecureElementComputeAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Final &rArr; aes_encrypt &rArr; mix_sub_columns &rArr; copy_block
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PrepareTxFrame
@@ -5821,8 +5821,8 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> periodicuplink.o(.text.StartTxProcess)
 </UL>
-<P><STRONG><a name="[1d1]"></a>PrepareTxFrame</STRONG> (Thumb, 238 bytes, Stack size 328 bytes, periodicuplink.o(.text.PrepareTxFrame))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1360 + Unknown Stack Size
+<P><STRONG><a name="[1d1]"></a>PrepareTxFrame</STRONG> (Thumb, 254 bytes, Stack size 344 bytes, periodicuplink.o(.text.PrepareTxFrame))
+<BR><BR>[Stack]<UL><LI>Max Depth = 1376 + Unknown Stack Size
 <LI>Call Chain = PrepareTxFrame &rArr; LmHandlerSend &rArr; LoRaMacMcpsRequest &rArr; Send &rArr; ScheduleTx &rArr; SendFrameOnChannel &rArr; SecureFrame &rArr; LoRaMacCryptoSecureMessage &rArr; ComputeCmacB1 &rArr; SecureElementComputeAesCmac &rArr; ComputeCmac &rArr; AES_CMAC_Final &rArr; aes_encrypt &rArr; mix_sub_columns &rArr; copy_block
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;JalapenosLppGetSize

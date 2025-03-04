@@ -445,9 +445,9 @@ LmHandlerAppData_t AppData2 =
     JalapenosLppReset( );
     JalapenosLppAddPAR( CHANNEL_PAR, data.Measurement.PAR );
 	//JalapenosLppAddPAR( CHANNEL_PAR + 1, data.Measurement.PAR );
-	JalapenosLppAddTemperature( channel, data.Measurement.temperature);
+	JalapenosLppAddTemperature( channel, data.Measurement.temperature1,data.Measurement.temperature2,data.Measurement.temperature3);
 	//JalapenosLppAddTemperature( channel+1, data.Measurement.temperature);
-	JalapenosLppAddRelativeHumidity( channel, data.Measurement.humidity);
+	JalapenosLppAddRelativeHumidity( channel, data.Measurement.humidity1,data.Measurement.humidity2,data.Measurement.humidity3);
 	//JalapenosLppAddRelativeHumidity( channel+1, data.Measurement.humidity);
     JalapenosLppAddShuntVoltage( CHANNEL_SHUNT_V, data.Measurement.shuntVoltage);
 	JalapenosLppAddBusVoltage( CHANNEL_BUS_V, data.Measurement.busVoltage);

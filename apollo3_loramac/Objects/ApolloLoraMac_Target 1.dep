@@ -80,7 +80,7 @@ I (..\Library\pins.h)(0x67B0D142)
 I (..\Library\i2c.h)(0x67B0D142)
 I (..\Library\gpio.h)(0x67B0D142)
 I (..\Library\spi.h)(0x67B0D142)
-I (..\Library\shtc3.h)(0x67B0D142)
+I (..\Library\shtc3.h)(0x67C71D56)
 I (..\Library\timing.h)(0x67B0D142)
 I (..\Library\mb85rc64ta.h)(0x67B0D142)
 I (..\Lora\boards\rtc-board.h)(0x67B0D177)
@@ -115,12 +115,12 @@ I (..\Lora\mac\LoRaMacHeaderTypes.h)(0x67B0D177)
 I (..\Lora\mac\region\Region.h)(0x67B0D177)
 I (..\Lora\boards\Apollo3_V2\transmitConfig.h)(0x67B0D177)
 I (..\Lora\radio\radio.h)(0x67B0D177)
-I (..\Library\taskHandler.h)(0x67B0D142)
+I (..\Library\taskHandler.h)(0x67C71E13)
 I (..\Library\device.h)(0x67B0D142)
 I (..\Library\adc.h)(0x67B0D142)
 I (..\Library\ina232.h)(0x67B0D142)
 I (..\Lora\apps\LoRaMac\common\NvmDataMgmt.h)(0x67B0D177)
-I (JalapenosLpp.h)(0x67B0D163)
+I (JalapenosLpp.h)(0x67C71F3F)
 F (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\mcu\apollo3\hal\am_hal_adc.c)(0x67B0DB37)(-xc -std=c11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/mcu/apollo3 -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/utils -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/CMSIS/AmbiqMicro/Include -I ../apollo3_loramac -I ../Lora/boards -I ../Lora/boards/Apollo3_V2 -I ../Lora/apps/LoRaMac/common/LmHandler/packages -I ../Lora/apps/LoRaMac/common/LmHandler -I ../Lora/apps/LoRaMac/common -I ../Lora/mac/region -I ../Lora/mac -I ../Lora/peripherals -I ../Lora/peripherals/soft-se -I ../Lora/radio -I ../Lora/system -I ../Lora/boards -I ../Library-I./RTE/Device/AMA3B1KK-KBR-I./RTE/_Target_1-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/PrivateInclude-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/AmbiqMicro/Apollo_DFP/1.4.1/Device/Include-D__UVISION_VERSION="541" -DAPOLLO3_1024 -D_RTE_ -DAM_PACKAGE_BGA -DAM_PART_APOLLO3 -DSOFT_SE -DREGION_EU868 -DACTIVE_REGION="LORAMAC_REGION_EU868"-o ./objects/am_hal_adc.o -MMD)
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\mcu\apollo3\am_mcu_apollo.h)(0x67B0DB37)
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\CMSIS\AmbiqMicro\Include\apollo3.h)(0x67B0DAA1)
@@ -1840,7 +1840,7 @@ I (..\Lora\radio\sx126x.h)(0x67B0D177)
 I (..\Library\spi.h)(0x67B0D142)
 I (..\Lora\boards\sx126x-board.h)(0x67B0D177)
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\utils\am_util_stdio.h)(0x67B0DB81)
-F (.\periodicUplink.c)(0x67B0D164)(-xc -std=c11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/mcu/apollo3 -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/utils -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/CMSIS/AmbiqMicro/Include -I ../apollo3_loramac -I ../Lora/boards -I ../Lora/boards/Apollo3_V2 -I ../Lora/apps/LoRaMac/common/LmHandler/packages -I ../Lora/apps/LoRaMac/common/LmHandler -I ../Lora/apps/LoRaMac/common -I ../Lora/mac/region -I ../Lora/mac -I ../Lora/peripherals -I ../Lora/peripherals/soft-se -I ../Lora/radio -I ../Lora/system -I ../Lora/boards -I ../Library-I./RTE/Device/AMA3B1KK-KBR-I./RTE/_Target_1-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/PrivateInclude-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/AmbiqMicro/Apollo_DFP/1.4.1/Device/Include-D__UVISION_VERSION="541" -DAPOLLO3_1024 -D_RTE_ -DAM_PACKAGE_BGA -DAM_PART_APOLLO3 -DSOFT_SE -DREGION_EU868 -DACTIVE_REGION="LORAMAC_REGION_EU868"-o ./objects/periodicuplink.o -MMD)
+F (.\periodicUplink.c)(0x67C71E6F)(-xc -std=c11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/mcu/apollo3 -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/utils -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/CMSIS/AmbiqMicro/Include -I ../apollo3_loramac -I ../Lora/boards -I ../Lora/boards/Apollo3_V2 -I ../Lora/apps/LoRaMac/common/LmHandler/packages -I ../Lora/apps/LoRaMac/common/LmHandler -I ../Lora/apps/LoRaMac/common -I ../Lora/mac/region -I ../Lora/mac -I ../Lora/peripherals -I ../Lora/peripherals/soft-se -I ../Lora/radio -I ../Lora/system -I ../Lora/boards -I ../Library-I./RTE/Device/AMA3B1KK-KBR-I./RTE/_Target_1-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/PrivateInclude-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/AmbiqMicro/Apollo_DFP/1.4.1/Device/Include-D__UVISION_VERSION="541" -DAPOLLO3_1024 -D_RTE_ -DAM_PACKAGE_BGA -DAM_PART_APOLLO3 -DSOFT_SE -DREGION_EU868 -DACTIVE_REGION="LORAMAC_REGION_EU868"-o ./objects/periodicuplink.o -MMD)
 I (periodicUplink.h)(0x67B0D164)
 I (..\Lora\apps\LoRaMac\common\LmHandler\..\..\common\githubVersion.h)(0x67B0D177)
 I (..\Lora\boards\utilities.h)(0x67B0D177)
@@ -1909,7 +1909,7 @@ I (..\Lora\boards\Apollo3_V2\transmitConfig.h)(0x67B0D177)
 I (..\Lora\radio\radio.h)(0x67B0D177)
 I (..\Library\pins.h)(0x67B0D142)
 I (..\Library\am1805.h)(0x67B0D142)
-I (..\Library\taskHandler.h)(0x67B0D142)
+I (..\Library\taskHandler.h)(0x67C71E13)
 I (..\Library\device.h)(0x67B0D142)
 I (..\Library\dac63002.h)(0x67B0D142)
 I (..\Library\i2c.h)(0x67B0D142)
@@ -1940,7 +1940,7 @@ I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\utils\am_util_stdio.h)(0x67B0DB81)
 I (..\Library\adc.h)(0x67B0D142)
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\utils\am_util_delay.h)(0x67B0DB81)
 I (..\Library\timing.h)(0x67B0D142)
-I (..\Library\shtc3.h)(0x67B0D142)
+I (..\Library\shtc3.h)(0x67C71D56)
 I (..\Library\as7341.h)(0x67B0D142)
 I (..\Library\ina232.h)(0x67B0D142)
 I (..\Library\spi.h)(0x67B0D142)
@@ -1952,7 +1952,7 @@ I (..\Lora\apps\LoRaMac\common\LmHandler\LmHandler.h)(0x67B0D177)
 I (..\Lora\apps\LoRaMac\common\LmHandler\LmHandlerTypes.h)(0x67B0D177)
 I (..\Lora\apps\LoRaMac\common\LmHandler\packages\LmhpCompliance.h)(0x67B0D177)
 I (..\Lora\apps\LoRaMac\common\LmHandler\packages\LmhPackage.h)(0x67B0D177)
-I (JalapenosLpp.h)(0x67B0D163)
+I (JalapenosLpp.h)(0x67C71F3F)
 I (..\Lora\apps\LoRaMac\common\LmHandlerMsgDisplay.h)(0x67B0D177)
 F (..\Library\adc.c)(0x67B0D142)(-xc -std=c11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/mcu/apollo3 -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/utils -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/CMSIS/AmbiqMicro/Include -I ../apollo3_loramac -I ../Lora/boards -I ../Lora/boards/Apollo3_V2 -I ../Lora/apps/LoRaMac/common/LmHandler/packages -I ../Lora/apps/LoRaMac/common/LmHandler -I ../Lora/apps/LoRaMac/common -I ../Lora/mac/region -I ../Lora/mac -I ../Lora/peripherals -I ../Lora/peripherals/soft-se -I ../Lora/radio -I ../Lora/system -I ../Lora/boards -I ../Library-I./RTE/Device/AMA3B1KK-KBR-I./RTE/_Target_1-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/PrivateInclude-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/AmbiqMicro/Apollo_DFP/1.4.1/Device/Include-D__UVISION_VERSION="541" -DAPOLLO3_1024 -D_RTE_ -DAM_PACKAGE_BGA -DAM_PART_APOLLO3 -DSOFT_SE -DREGION_EU868 -DACTIVE_REGION="LORAMAC_REGION_EU868"-o ./objects/adc.o -MMD)
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\mcu\apollo3\am_mcu_apollo.h)(0x67B0DB37)
@@ -2034,10 +2034,10 @@ I (C:\Users\sujra\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\dsp\quate
 I (C:\Users\sujra\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\dsp\window_functions.h)(0x67B0D75F)
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\utils\am_util_stdio.h)(0x67B0DB81)
 I (..\Library\timing.h)(0x67B0D142)
-I (..\Library\shtc3.h)(0x67B0D142)
+I (..\Library\shtc3.h)(0x67C71D56)
 I (..\Library\am1805.h)(0x67B0D142)
 I (..\Library\as7341.h)(0x67B0D142)
-I (..\Library\taskHandler.h)(0x67B0D142)
+I (..\Library\taskHandler.h)(0x67C71E13)
 I (..\Library\spi.h)(0x67B0D142)
 I (..\Library\ina232.h)(0x67B0D142)
 F (..\Library\am1805.c)(0x67B0D142)(-xc -std=c11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/mcu/apollo3 -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/utils -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/CMSIS/AmbiqMicro/Include -I ../apollo3_loramac -I ../Lora/boards -I ../Lora/boards/Apollo3_V2 -I ../Lora/apps/LoRaMac/common/LmHandler/packages -I ../Lora/apps/LoRaMac/common/LmHandler -I ../Lora/apps/LoRaMac/common -I ../Lora/mac/region -I ../Lora/mac -I ../Lora/peripherals -I ../Lora/peripherals/soft-se -I ../Lora/radio -I ../Lora/system -I ../Lora/boards -I ../Library-I./RTE/Device/AMA3B1KK-KBR-I./RTE/_Target_1-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/PrivateInclude-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/AmbiqMicro/Apollo_DFP/1.4.1/Device/Include-D__UVISION_VERSION="541" -DAPOLLO3_1024 -D_RTE_ -DAM_PACKAGE_BGA -DAM_PART_APOLLO3 -DSOFT_SE -DREGION_EU868 -DACTIVE_REGION="LORAMAC_REGION_EU868"-o ./objects/am1805.o -MMD)
@@ -2276,10 +2276,10 @@ I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\utils\am_util_stdio.h)(0x67B0DB81)
 I (..\Library\adc.h)(0x67B0D142)
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\utils\am_util_delay.h)(0x67B0DB81)
 I (..\Library\timing.h)(0x67B0D142)
-I (..\Library\shtc3.h)(0x67B0D142)
+I (..\Library\shtc3.h)(0x67C71D56)
 I (..\Library\am1805.h)(0x67B0D142)
 I (..\Library\as7341.h)(0x67B0D142)
-I (..\Library\taskHandler.h)(0x67B0D142)
+I (..\Library\taskHandler.h)(0x67C71E13)
 I (..\Library\spi.h)(0x67B0D142)
 I (..\Library\ina232.h)(0x67B0D142)
 F (..\Library\ina232.c)(0x67B0D142)(-xc -std=c11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/mcu/apollo3 -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/utils -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/CMSIS/AmbiqMicro/Include -I ../apollo3_loramac -I ../Lora/boards -I ../Lora/boards/Apollo3_V2 -I ../Lora/apps/LoRaMac/common/LmHandler/packages -I ../Lora/apps/LoRaMac/common/LmHandler -I ../Lora/apps/LoRaMac/common -I ../Lora/mac/region -I ../Lora/mac -I ../Lora/peripherals -I ../Lora/peripherals/soft-se -I ../Lora/radio -I ../Lora/system -I ../Lora/boards -I ../Library-I./RTE/Device/AMA3B1KK-KBR-I./RTE/_Target_1-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/PrivateInclude-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/AmbiqMicro/Apollo_DFP/1.4.1/Device/Include-D__UVISION_VERSION="541" -DAPOLLO3_1024 -D_RTE_ -DAM_PACKAGE_BGA -DAM_PART_APOLLO3 -DSOFT_SE -DREGION_EU868 -DACTIVE_REGION="LORAMAC_REGION_EU868"-o ./objects/ina232.o -MMD)
@@ -2389,8 +2389,8 @@ I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\mcu\apollo3\hal\am_hal_wdt.h)(0x67
 I (..\Library\gpio.h)(0x67B0D142)
 I (..\Library\pins.h)(0x67B0D142)
 I (..\Library\i2c.h)(0x67B0D142)
-F (..\Library\shtc3.c)(0x67B0D142)(-xc -std=c11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/mcu/apollo3 -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/utils -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/CMSIS/AmbiqMicro/Include -I ../apollo3_loramac -I ../Lora/boards -I ../Lora/boards/Apollo3_V2 -I ../Lora/apps/LoRaMac/common/LmHandler/packages -I ../Lora/apps/LoRaMac/common/LmHandler -I ../Lora/apps/LoRaMac/common -I ../Lora/mac/region -I ../Lora/mac -I ../Lora/peripherals -I ../Lora/peripherals/soft-se -I ../Lora/radio -I ../Lora/system -I ../Lora/boards -I ../Library-I./RTE/Device/AMA3B1KK-KBR-I./RTE/_Target_1-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/PrivateInclude-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/AmbiqMicro/Apollo_DFP/1.4.1/Device/Include-D__UVISION_VERSION="541" -DAPOLLO3_1024 -D_RTE_ -DAM_PACKAGE_BGA -DAM_PART_APOLLO3 -DSOFT_SE -DREGION_EU868 -DACTIVE_REGION="LORAMAC_REGION_EU868"-o ./objects/shtc3.o -MMD)
-I (..\Library\shtc3.h)(0x67B0D142)
+F (..\Library\shtc3.c)(0x67C71D30)(-xc -std=c11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/mcu/apollo3 -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/utils -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/CMSIS/AmbiqMicro/Include -I ../apollo3_loramac -I ../Lora/boards -I ../Lora/boards/Apollo3_V2 -I ../Lora/apps/LoRaMac/common/LmHandler/packages -I ../Lora/apps/LoRaMac/common/LmHandler -I ../Lora/apps/LoRaMac/common -I ../Lora/mac/region -I ../Lora/mac -I ../Lora/peripherals -I ../Lora/peripherals/soft-se -I ../Lora/radio -I ../Lora/system -I ../Lora/boards -I ../Library-I./RTE/Device/AMA3B1KK-KBR-I./RTE/_Target_1-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/PrivateInclude-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/AmbiqMicro/Apollo_DFP/1.4.1/Device/Include-D__UVISION_VERSION="541" -DAPOLLO3_1024 -D_RTE_ -DAM_PACKAGE_BGA -DAM_PART_APOLLO3 -DSOFT_SE -DREGION_EU868 -DACTIVE_REGION="LORAMAC_REGION_EU868"-o ./objects/shtc3.o -MMD)
+I (..\Library\shtc3.h)(0x67C71D56)
 I (..\Library\i2c.h)(0x67B0D142)
 I (..\Library\timing.h)(0x67B0D142)
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\mcu\apollo3\am_mcu_apollo.h)(0x67B0DB37)
@@ -2521,13 +2521,13 @@ I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\utils\am_util_stdio.h)(0x67B0DB81)
 I (..\Library\adc.h)(0x67B0D142)
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\utils\am_util_delay.h)(0x67B0DB81)
 I (..\Library\timing.h)(0x67B0D142)
-I (..\Library\shtc3.h)(0x67B0D142)
+I (..\Library\shtc3.h)(0x67C71D56)
 I (..\Library\am1805.h)(0x67B0D142)
 I (..\Library\as7341.h)(0x67B0D142)
-I (..\Library\taskHandler.h)(0x67B0D142)
+I (..\Library\taskHandler.h)(0x67C71E13)
 I (..\Library\ina232.h)(0x67B0D142)
-F (..\Library\taskhandler.c)(0x67B0D142)(-xc -std=c11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/mcu/apollo3 -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/utils -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/CMSIS/AmbiqMicro/Include -I ../apollo3_loramac -I ../Lora/boards -I ../Lora/boards/Apollo3_V2 -I ../Lora/apps/LoRaMac/common/LmHandler/packages -I ../Lora/apps/LoRaMac/common/LmHandler -I ../Lora/apps/LoRaMac/common -I ../Lora/mac/region -I ../Lora/mac -I ../Lora/peripherals -I ../Lora/peripherals/soft-se -I ../Lora/radio -I ../Lora/system -I ../Lora/boards -I ../Library-I./RTE/Device/AMA3B1KK-KBR-I./RTE/_Target_1-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/PrivateInclude-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/AmbiqMicro/Apollo_DFP/1.4.1/Device/Include-D__UVISION_VERSION="541" -DAPOLLO3_1024 -D_RTE_ -DAM_PACKAGE_BGA -DAM_PART_APOLLO3 -DSOFT_SE -DREGION_EU868 -DACTIVE_REGION="LORAMAC_REGION_EU868"-o ./objects/taskhandler.o -MMD)
-I (..\Library\taskHandler.h)(0x67B0D142)
+F (..\Library\taskhandler.c)(0x67C71E2F)(-xc -std=c11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/mcu/apollo3 -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/utils -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/CMSIS/AmbiqMicro/Include -I ../apollo3_loramac -I ../Lora/boards -I ../Lora/boards/Apollo3_V2 -I ../Lora/apps/LoRaMac/common/LmHandler/packages -I ../Lora/apps/LoRaMac/common/LmHandler -I ../Lora/apps/LoRaMac/common -I ../Lora/mac/region -I ../Lora/mac -I ../Lora/peripherals -I ../Lora/peripherals/soft-se -I ../Lora/radio -I ../Lora/system -I ../Lora/boards -I ../Library-I./RTE/Device/AMA3B1KK-KBR-I./RTE/_Target_1-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/PrivateInclude-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/AmbiqMicro/Apollo_DFP/1.4.1/Device/Include-D__UVISION_VERSION="541" -DAPOLLO3_1024 -D_RTE_ -DAM_PACKAGE_BGA -DAM_PART_APOLLO3 -DSOFT_SE -DREGION_EU868 -DACTIVE_REGION="LORAMAC_REGION_EU868"-o ./objects/taskhandler.o -MMD)
+I (..\Library\taskHandler.h)(0x67C71E13)
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\CMSIS\AmbiqMicro\Include\apollo3.h)(0x67B0DAA1)
 I (C:\Users\sujra\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm4.h)(0x67B0D6D9)
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\CMSIS\AmbiqMicro\Include\system_apollo3.h)(0x67B0DAA1)
@@ -2607,7 +2607,7 @@ I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\utils\am_util_stdio.h)(0x67B0DB81)
 I (..\Library\adc.h)(0x67B0D142)
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\utils\am_util_delay.h)(0x67B0DB81)
 I (..\Library\timing.h)(0x67B0D142)
-I (..\Library\shtc3.h)(0x67B0D142)
+I (..\Library\shtc3.h)(0x67C71D56)
 I (..\Library\am1805.h)(0x67B0D142)
 I (..\Library\as7341.h)(0x67B0D142)
 I (..\Library\ina232.h)(0x67B0D142)
@@ -2692,10 +2692,10 @@ I (C:\Users\sujra\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.15.0\Include\dsp\windo
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\utils\am_util_stdio.h)(0x67B0DB81)
 I (..\Library\adc.h)(0x67B0D142)
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\utils\am_util_delay.h)(0x67B0DB81)
-I (..\Library\shtc3.h)(0x67B0D142)
+I (..\Library\shtc3.h)(0x67C71D56)
 I (..\Library\am1805.h)(0x67B0D142)
 I (..\Library\as7341.h)(0x67B0D142)
-I (..\Library\taskHandler.h)(0x67B0D142)
+I (..\Library\taskHandler.h)(0x67C71E13)
 I (..\Library\spi.h)(0x67B0D142)
 I (..\Library\ina232.h)(0x67B0D142)
 F (..\Library\gpio.c)(0x67B0D142)(-xc -std=c11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/mcu/apollo3 -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/utils -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/CMSIS/AmbiqMicro/Include -I ../apollo3_loramac -I ../Lora/boards -I ../Lora/boards/Apollo3_V2 -I ../Lora/apps/LoRaMac/common/LmHandler/packages -I ../Lora/apps/LoRaMac/common/LmHandler -I ../Lora/apps/LoRaMac/common -I ../Lora/mac/region -I ../Lora/mac -I ../Lora/peripherals -I ../Lora/peripherals/soft-se -I ../Lora/radio -I ../Lora/system -I ../Lora/boards -I ../Library-I./RTE/Device/AMA3B1KK-KBR-I./RTE/_Target_1-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/PrivateInclude-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/AmbiqMicro/Apollo_DFP/1.4.1/Device/Include-D__UVISION_VERSION="541" -DAPOLLO3_1024 -D_RTE_ -DAM_PACKAGE_BGA -DAM_PART_APOLLO3 -DSOFT_SE -DREGION_EU868 -DACTIVE_REGION="LORAMAC_REGION_EU868"-o ./objects/gpio.o -MMD)
@@ -2749,7 +2749,7 @@ I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\mcu\apollo3\hal\am_hal_wdt.h)(0x67
 I (..\Library\pins.h)(0x67B0D142)
 I (..\Library\gpio.h)(0x67B0D142)
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\utils\am_util_stdio.h)(0x67B0DB81)
-F (..\Library\device.c)(0x67B0D142)(-xc -std=c11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/mcu/apollo3 -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/utils -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/CMSIS/AmbiqMicro/Include -I ../apollo3_loramac -I ../Lora/boards -I ../Lora/boards/Apollo3_V2 -I ../Lora/apps/LoRaMac/common/LmHandler/packages -I ../Lora/apps/LoRaMac/common/LmHandler -I ../Lora/apps/LoRaMac/common -I ../Lora/mac/region -I ../Lora/mac -I ../Lora/peripherals -I ../Lora/peripherals/soft-se -I ../Lora/radio -I ../Lora/system -I ../Lora/boards -I ../Library-I./RTE/Device/AMA3B1KK-KBR-I./RTE/_Target_1-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/PrivateInclude-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/AmbiqMicro/Apollo_DFP/1.4.1/Device/Include-D__UVISION_VERSION="541" -DAPOLLO3_1024 -D_RTE_ -DAM_PACKAGE_BGA -DAM_PART_APOLLO3 -DSOFT_SE -DREGION_EU868 -DACTIVE_REGION="LORAMAC_REGION_EU868"-o ./objects/device.o -MMD)
+F (..\Library\device.c)(0x67C71FB3)(-xc -std=c11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/mcu/apollo3 -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/utils -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/CMSIS/AmbiqMicro/Include -I ../apollo3_loramac -I ../Lora/boards -I ../Lora/boards/Apollo3_V2 -I ../Lora/apps/LoRaMac/common/LmHandler/packages -I ../Lora/apps/LoRaMac/common/LmHandler -I ../Lora/apps/LoRaMac/common -I ../Lora/mac/region -I ../Lora/mac -I ../Lora/peripherals -I ../Lora/peripherals/soft-se -I ../Lora/radio -I ../Lora/system -I ../Lora/boards -I ../Library-I./RTE/Device/AMA3B1KK-KBR-I./RTE/_Target_1-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/PrivateInclude-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/AmbiqMicro/Apollo_DFP/1.4.1/Device/Include-D__UVISION_VERSION="541" -DAPOLLO3_1024 -D_RTE_ -DAM_PACKAGE_BGA -DAM_PART_APOLLO3 -DSOFT_SE -DREGION_EU868 -DACTIVE_REGION="LORAMAC_REGION_EU868"-o ./objects/device.o -MMD)
 I (..\Library\device.h)(0x67B0D142)
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\mcu\apollo3\am_mcu_apollo.h)(0x67B0DB37)
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\CMSIS\AmbiqMicro\Include\apollo3.h)(0x67B0DAA1)
@@ -2829,10 +2829,10 @@ I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\utils\am_util_stdio.h)(0x67B0DB81)
 I (..\Library\adc.h)(0x67B0D142)
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\utils\am_util_delay.h)(0x67B0DB81)
 I (..\Library\timing.h)(0x67B0D142)
-I (..\Library\shtc3.h)(0x67B0D142)
+I (..\Library\shtc3.h)(0x67C71D56)
 I (..\Library\am1805.h)(0x67B0D142)
 I (..\Library\as7341.h)(0x67B0D142)
-I (..\Library\taskHandler.h)(0x67B0D142)
+I (..\Library\taskHandler.h)(0x67C71E13)
 I (..\Library\spi.h)(0x67B0D142)
 I (..\Library\ina232.h)(0x67B0D142)
 F (.\fuota.h)(0x67B0D164)()
@@ -2846,9 +2846,9 @@ F (..\Library\i2c.h)(0x67B0D142)()
 F (..\Library\ina232.h)(0x67B0D142)()
 F (..\Library\mb85rc64ta.h)(0x67B0D142)()
 F (..\Library\rtc.h)(0x67B0D142)()
-F (..\Library\shtc3.h)(0x67B0D142)()
+F (..\Library\shtc3.h)(0x67C71D56)()
 F (..\Library\spi.h)(0x67B0D142)()
-F (..\Library\taskHandler.h)(0x67B0D142)()
+F (..\Library\taskHandler.h)(0x67C71E13)()
 F (..\Library\timing.h)(0x67B0D142)()
 F (..\Library\gpio.h)(0x67B0D142)()
 F (..\Library\device.h)(0x67B0D142)()
@@ -3166,7 +3166,7 @@ I (..\Library\am1805.h)(0x67B0D142)
 I (..\Library\as7341.h)(0x67B0D142)
 I (..\Library\dac63002.h)(0x67B0D142)
 I (..\Library\pins.h)(0x67B0D142)
-I (..\Library\shtc3.h)(0x67B0D142)
+I (..\Library\shtc3.h)(0x67C71D56)
 I (..\Library\timing.h)(0x67B0D142)
 I (..\Library\mb85rc64ta.h)(0x67B0D142)
 I (..\Lora\boards\sx126x-board.h)(0x67B0D177)
@@ -3239,7 +3239,7 @@ I (..\Library\pins.h)(0x67B0D142)
 I (..\Library\i2c.h)(0x67B0D142)
 I (..\Library\gpio.h)(0x67B0D142)
 I (..\Library\spi.h)(0x67B0D142)
-I (..\Library\shtc3.h)(0x67B0D142)
+I (..\Library\shtc3.h)(0x67C71D56)
 I (..\Library\timing.h)(0x67B0D142)
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\utils\am_util_delay.h)(0x67B0DB81)
 I (..\Lora\system\delay.h)(0x67B0D177)
@@ -3355,7 +3355,7 @@ I (..\Library\pins.h)(0x67B0D142)
 I (..\Library\i2c.h)(0x67B0D142)
 I (..\Library\gpio.h)(0x67B0D142)
 I (..\Library\spi.h)(0x67B0D142)
-I (..\Library\shtc3.h)(0x67B0D142)
+I (..\Library\shtc3.h)(0x67C71D56)
 I (..\Library\timing.h)(0x67B0D142)
 I (..\Library\mb85rc64ta.h)(0x67B0D142)
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\utils\am_util_delay.h)(0x67B0DB81)
@@ -3433,7 +3433,7 @@ I (..\Library\am1805.h)(0x67B0D142)
 I (..\Library\as7341.h)(0x67B0D142)
 I (..\Library\dac63002.h)(0x67B0D142)
 I (..\Library\i2c.h)(0x67B0D142)
-I (..\Library\shtc3.h)(0x67B0D142)
+I (..\Library\shtc3.h)(0x67C71D56)
 I (..\Library\timing.h)(0x67B0D142)
 I (..\Library\mb85rc64ta.h)(0x67B0D142)
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\utils\am_util_delay.h)(0x67B0DB81)
@@ -3912,10 +3912,10 @@ I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\mcu\apollo3\hal\am_hal_tpiu.h)(0x6
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\mcu\apollo3\hal\am_hal_uart.h)(0x67B0DB3C)
 I (..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\mcu\apollo3\hal\am_hal_wdt.h)(0x67B0DB3C)
 F (..\LoRa\system\uart.h)(0x67B0D177)()
-F (.\JalapenosLpp.c)(0x67B0D163)(-xc -std=c11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/mcu/apollo3 -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/utils -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/CMSIS/AmbiqMicro/Include -I ../apollo3_loramac -I ../Lora/boards -I ../Lora/boards/Apollo3_V2 -I ../Lora/apps/LoRaMac/common/LmHandler/packages -I ../Lora/apps/LoRaMac/common/LmHandler -I ../Lora/apps/LoRaMac/common -I ../Lora/mac/region -I ../Lora/mac -I ../Lora/peripherals -I ../Lora/peripherals/soft-se -I ../Lora/radio -I ../Lora/system -I ../Lora/boards -I ../Library-I./RTE/Device/AMA3B1KK-KBR-I./RTE/_Target_1-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/PrivateInclude-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/AmbiqMicro/Apollo_DFP/1.4.1/Device/Include-D__UVISION_VERSION="541" -DAPOLLO3_1024 -D_RTE_ -DAM_PACKAGE_BGA -DAM_PART_APOLLO3 -DSOFT_SE -DREGION_EU868 -DACTIVE_REGION="LORAMAC_REGION_EU868"-o ./objects/jalapenoslpp.o -MMD)
+F (.\JalapenosLpp.c)(0x67C71F63)(-xc -std=c11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/mcu/apollo3 -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/utils -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/CMSIS/AmbiqMicro/Include -I ../apollo3_loramac -I ../Lora/boards -I ../Lora/boards/Apollo3_V2 -I ../Lora/apps/LoRaMac/common/LmHandler/packages -I ../Lora/apps/LoRaMac/common/LmHandler -I ../Lora/apps/LoRaMac/common -I ../Lora/mac/region -I ../Lora/mac -I ../Lora/peripherals -I ../Lora/peripherals/soft-se -I ../Lora/radio -I ../Lora/system -I ../Lora/boards -I ../Library-I./RTE/Device/AMA3B1KK-KBR-I./RTE/_Target_1-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/PrivateInclude-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/AmbiqMicro/Apollo_DFP/1.4.1/Device/Include-D__UVISION_VERSION="541" -DAPOLLO3_1024 -D_RTE_ -DAM_PACKAGE_BGA -DAM_PART_APOLLO3 -DSOFT_SE -DREGION_EU868 -DACTIVE_REGION="LORAMAC_REGION_EU868"-o ./objects/jalapenoslpp.o -MMD)
 I (..\Lora\boards\utilities.h)(0x67B0D177)
-I (JalapenosLpp.h)(0x67B0D163)
-F (.\JalapenosLpp.h)(0x67B0D163)()
+I (JalapenosLpp.h)(0x67C71F3F)
+F (.\JalapenosLpp.h)(0x67C71F3F)()
 F (..\LoRa\apps\LoRaMac\common\CayenneLpp.c)(0x67B0D177)(-xc -std=c11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/mcu/apollo3 -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/utils -I ../AmbiqSuite-SDK-v3-1-1/AmbiqSuite_R3.1.1/CMSIS/AmbiqMicro/Include -I ../apollo3_loramac -I ../Lora/boards -I ../Lora/boards/Apollo3_V2 -I ../Lora/apps/LoRaMac/common/LmHandler/packages -I ../Lora/apps/LoRaMac/common/LmHandler -I ../Lora/apps/LoRaMac/common -I ../Lora/mac/region -I ../Lora/mac -I ../Lora/peripherals -I ../Lora/peripherals/soft-se -I ../Lora/radio -I ../Lora/system -I ../Lora/boards -I ../Library-I./RTE/Device/AMA3B1KK-KBR-I./RTE/_Target_1-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.15.0/PrivateInclude-IC:/Users/sujra/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/sujra/AppData/Local/Arm/Packs/AmbiqMicro/Apollo_DFP/1.4.1/Device/Include-D__UVISION_VERSION="541" -DAPOLLO3_1024 -D_RTE_ -DAM_PACKAGE_BGA -DAM_PART_APOLLO3 -DSOFT_SE -DREGION_EU868 -DACTIVE_REGION="LORAMAC_REGION_EU868"-o ./objects/cayennelpp.o -MMD)
 I (..\Lora\boards\utilities.h)(0x67B0D177)
 I (..\LoRa\apps\LoRaMac\common\CayenneLpp.h)(0x67B0D177)

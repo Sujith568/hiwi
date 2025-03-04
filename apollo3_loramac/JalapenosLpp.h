@@ -54,8 +54,8 @@ extern "C" {
 #define LPP_ANALOG_OUTPUT_SIZE       	6
 #define LPP_LUMINOSITY_SIZE          	4
 #define LPP_PRESENCE_SIZE            	3
-#define LPP_TEMPERATURE_SIZE         	6
-#define LPP_RELATIVE_HUMIDITY_SIZE   	6
+#define LPP_TEMPERATURE_SIZE         	14
+#define LPP_RELATIVE_HUMIDITY_SIZE   	14
 #define LPP_ACCELEROMETER_SIZE       	8
 #define LPP_BAROMETRIC_PRESSURE_SIZE 	4
 #define LPP_GYROMETER_SIZE           	8
@@ -89,8 +89,8 @@ uint8_t JalapenosLppAddAnalogOutput( uint8_t channel, float value );
 
 uint8_t JalapenosLppAddLuminosity( uint8_t channel, uint16_t lux );
 uint8_t JalapenosLppAddPresence( uint8_t channel, uint8_t value );
-uint8_t JalapenosLppAddTemperature( uint8_t channel, float celsius );
-uint8_t JalapenosLppAddRelativeHumidity( uint8_t channel, float rh );
+uint8_t JalapenosLppAddTemperature( uint8_t channel, float celsius1,float celsius2, float celsius3 );
+uint8_t JalapenosLppAddRelativeHumidity( uint8_t channel, float rh1, float rh2, float rh3 );
 uint8_t JalapenosLppAddAccelerometer( uint8_t channel, float x, float y, float z );
 uint8_t JalapenosLppAddBarometricPressure( uint8_t channel, float hpa );
 uint8_t JalapenosLppAddGyrometer( uint8_t channel, float x, float y, float z );

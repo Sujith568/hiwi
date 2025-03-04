@@ -71,14 +71,38 @@
         // SHTC3
         union
         {
-            float temperature;
-            uint8_t temp_bytes[4];
+            float temperature1;
+            uint8_t temp1_bytes[4];
         };
 
         union
         {
-            float humidity;
-            uint8_t hum_bytes[4];
+            float humidity1;
+            uint8_t hum1_bytes[4];
+        };
+				
+				union
+				{
+            float temperature2;
+            uint8_t temp2_bytes[4];
+        };
+
+        union
+        {
+            float humidity2;
+            uint8_t hum2_bytes[4];
+        };
+				
+				union
+				{
+            float temperature3;
+            uint8_t temp3_bytes[4];
+        };
+
+        union
+        {
+            float humidity3;
+            uint8_t hum3_bytes[4];
         };
 
         // Datetime

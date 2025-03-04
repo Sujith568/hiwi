@@ -147,16 +147,28 @@ uint8_t JalapenosLppAddPresence( uint8_t channel, uint8_t value )
     return JalapenosLppCursor;
 }
 
-uint8_t JalapenosLppAddTemperature( uint8_t channel, float celsius )
+uint8_t JalapenosLppAddTemperature( uint8_t channel, float celsius1,float celsius2, float celsius3 )
 {
     if( ( JalapenosLppCursor + LPP_TEMPERATURE_SIZE ) > Jalapenos_LPP_MAXBUFFER_SIZE )
     {
         return 0;
     }
     union analogVal val;
-	val.analog = celsius;
+	val.analog = celsius1;
     JalapenosLppBuffer[JalapenosLppCursor++] = channel; 
     JalapenosLppBuffer[JalapenosLppCursor++] = LPP_TEMPERATURE; 
+	JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[3];
+	JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[2];
+    JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[1]; 
+    JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[0];
+		
+		val.analog = celsius2;
+	JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[3];
+	JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[2];
+    JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[1]; 
+    JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[0];
+		
+		val.analog = celsius3;
 	JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[3];
 	JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[2];
     JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[1]; 
@@ -165,14 +177,14 @@ uint8_t JalapenosLppAddTemperature( uint8_t channel, float celsius )
     return JalapenosLppCursor;
 }
 
-uint8_t JalapenosLppAddRelativeHumidity( uint8_t channel, float rh )
+uint8_t JalapenosLppAddRelativeHumidity( uint8_t channel, float rh1, float rh2, float rh3 )
 {
     if( ( JalapenosLppCursor + LPP_RELATIVE_HUMIDITY_SIZE ) > Jalapenos_LPP_MAXBUFFER_SIZE )
     {
         return 0;
     }
     union analogVal val;
-	val.analog = rh;
+	val.analog = rh1;
     JalapenosLppBuffer[JalapenosLppCursor++] = channel; 
     JalapenosLppBuffer[JalapenosLppCursor++] = LPP_RELATIVE_HUMIDITY; 
 	JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[3];
@@ -180,6 +192,19 @@ uint8_t JalapenosLppAddRelativeHumidity( uint8_t channel, float rh )
     JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[1]; 
     JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[0];
 
+		
+			val.analog = rh2;
+	JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[3];
+	JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[2];
+    JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[1]; 
+    JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[0];
+		
+			val.analog = rh3;
+	JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[3];
+	JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[2];
+    JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[1]; 
+    JalapenosLppBuffer[JalapenosLppCursor++] = val.bytes[0];
+		
     return JalapenosLppCursor;
 }
 
