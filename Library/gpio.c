@@ -83,7 +83,7 @@ const am_hal_gpio_pincfg_t pad7FNCsel =
 const am_hal_gpio_pincfg_t g_AM_BSP_GPIO_IOM1_SCL =
 {
     .uFuncSel            = AM_HAL_PIN_8_M1SCL,
-    .ePullup             = AM_HAL_GPIO_PIN_PULLUP_6K,
+    .ePullup             = AM_HAL_GPIO_PIN_PULLDOWN,
     .eDriveStrength      = AM_HAL_GPIO_PIN_DRIVESTRENGTH_12MA,
     .eGPOutcfg           = AM_HAL_GPIO_PIN_OUTCFG_OPENDRAIN,
     .uIOMnum             = 1
@@ -97,7 +97,7 @@ const am_hal_gpio_pincfg_t g_AM_BSP_GPIO_IOM1_SCL =
 const am_hal_gpio_pincfg_t g_AM_BSP_GPIO_IOM1_SDA =
 {
     .uFuncSel            = AM_HAL_PIN_9_M1SDAWIR3,
-    .ePullup             = AM_HAL_GPIO_PIN_PULLUP_6K,
+    .ePullup             = AM_HAL_GPIO_PIN_PULLDOWN,
     .eDriveStrength      = AM_HAL_GPIO_PIN_DRIVESTRENGTH_12MA,
     .eGPOutcfg           = AM_HAL_GPIO_PIN_OUTCFG_OPENDRAIN,
     .uIOMnum             = 1
