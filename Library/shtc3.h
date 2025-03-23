@@ -29,9 +29,6 @@
  *****************************************************************************/
 #define CRC_POLYNOMIAL  0x131 // P(x) = x^8 + x^5 + x^4 + 1 = 100110001
 #define ADDRESS_SHTC3   0x70
-#define ADDRESS_SHTC4_1 0x44
-#define ADDRESS_SHTC4_2 0x45
-#define ADDRESS_SHTC4_3 0x46
 #define AM_DEVICES_SHTC3_MAX_DEVICE_NUM 1
 
 // Error codes
@@ -63,7 +60,7 @@ typedef enum
  *****************************************************************************/
 //etError SHTC3_Init(uint8_t address);
 etError SHTC3_GetId(uint16_t *id);
-etError SHTC3_GetTempAndHumi(float *temp1, float *humi1, float *temp2, float *humi2, float *temp3, float *humi3);
+etError SHTC3_GetTempAndHumi(float *temp, float *humi);
 
 etError SHTC3_Sleep(void);
 etError SHTC3_Wakeup(void);

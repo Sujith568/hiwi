@@ -28,6 +28,8 @@
 #include "am_util_delay.h"
 #include "adc.h"
 #include "am_util_stdio.h"
+#include "sht4.h"
+
 
 
 #define NUMBER_SEND 40
@@ -37,7 +39,9 @@
 #define CHANNEL_CURRENT_REG 3
 #define CHANNEL_SUPERCAP_V 4
 
-
+#define TARGET_MAX_VALUE 8000
+#define TARGET_MIN_VALUE 1000
+#define MAX_AUTOGAIN_ITERATIONS 9
 
 
 
@@ -68,7 +72,7 @@
 //        uint16_t spec_ch11;
 //        uint16_t spec_gain;
 
-        // SHTC3
+        // SHT4x
         union
         {
             float temperature1;
@@ -139,10 +143,29 @@
     }Measurement;
 
 }SendData_t;
+
+typedef struct
+    {
+        // Spectral Sensor
+
+        float basic_ch0;
+        float basic_ch1;
+        float basic_ch2;
+        float basic_ch3;
+        float basic_ch4;
+        float basic_ch5;
+        float basic_ch6;
+        float basic_ch7;
+        float basic_clear;
+        float basic_nir;
+        float basic_gain;
+        float basic_tint;
+
+    }MeasurementBasic_t;
  
 typedef union MeasurementData_u
 {
-    uint8_t SendBytes[26];
+    uint8_t SendBytes[28];
     struct
     {
         //uint16_t sendType;
@@ -157,14 +180,13 @@ typedef union MeasurementData_u
         uint16_t spec_ch5;
         uint16_t spec_ch6;
         uint16_t spec_ch7;
-        uint16_t spec_ch8;
-        uint16_t spec_ch9;
-        uint16_t spec_ch10;
-        uint16_t spec_ch11;
+        uint16_t spec_clear;
+        uint16_t spec_nir;
         uint16_t spec_gain;
+        uint16_t spec_tint;
 
     }Measurement;
-
+		
 }MeasurementData_t;
 
 
@@ -182,6 +204,8 @@ uint32_t initSpecMeasurement(void);
  *	@return 0 on success
  */
 uint32_t executeSpecMeasurement(MeasurementData_t *data);
+
+void autogainSpec(as7341_gain_t last_gain, as7341_gain_t *new_gain, uint16_t last_clear);
 
 
 /*

@@ -644,6 +644,11 @@
               <FileType>1</FileType>
               <FilePath>..\Library\device.c</FilePath>
             </File>
+            <File>
+              <FileName>sht4.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\sht4.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -733,6 +738,11 @@
               <FileName>device.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Library\device.h</FilePath>
+            </File>
+            <File>
+              <FileName>sht4.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\sht4.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -49,6 +49,7 @@
 ".\objects\timing.o"
 ".\objects\gpio.o"
 ".\objects\device.o"
+".\objects\sht4.o"
 ".\objects\am_util_ble.o"
 ".\objects\am_util_debug.o"
 ".\objects\am_util_delay.o"

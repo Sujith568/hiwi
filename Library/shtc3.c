@@ -175,7 +175,7 @@ static float SHTC3_CalcHumidity(uint16_t rawValue)
  *                          CHECKSUM_ERROR = checksum mismatch
  *                          NO_ERROR       = no error
  ******************************************************************************/
-etError SHTC3_GetTempAndHumi(float *temp1, float *humi1, float *temp2, float *humi2, float *temp3, float *humi3)
+etError SHTC3_GetTempAndHumi(float *temp, float *humi)
 {
     uint32_t command;
     uint16_t rawTemp;
@@ -186,8 +186,8 @@ etError SHTC3_GetTempAndHumi(float *temp1, float *humi1, float *temp2, float *hu
 	timerDelay(1);		//give sensor time to wake up to prevent measurement errors
     // Set sensor in measureing mode (Temperature first, than Humidity)
     command = MEAS_T_RH_POLLING;
-	am_devices_iom_shtc3_t *pIom1 = (am_devices_iom_shtc3_t *)my_IomdevHdl;
-	if (am_device_command_write(pIom1->pIomHandle, ADDRESS_SHTC4_1, 2,
+	am_devices_iom_shtc3_t *pIom = (am_devices_iom_shtc3_t *)my_IomdevHdl;
+	if (am_device_command_write(pIom->pIomHandle, ADDRESS_SHTC3, 2,
 					   command,
 					   false, 0, 0))
     {
@@ -205,62 +205,8 @@ etError SHTC3_GetTempAndHumi(float *temp1, float *humi1, float *temp2, float *hu
     // if no error, calculate temperature in °C and humidity in %RH
     if (error == NO_ERROR)
     {
-        *temp1 = SHTC3_CalcTemperature(rawTemp);
-        *humi1 = SHTC3_CalcHumidity(rawHum);
-    }
-		
-		//    error = SHTC3_Wakeup();
-	timerDelay(1);		//give sensor time to wake up to prevent measurement errors
-    // Set sensor in measureing mode (Temperature first, than Humidity)
-    command = MEAS_T_RH_POLLING;
-	am_devices_iom_shtc3_t *pIom2 = (am_devices_iom_shtc3_t *)my_IomdevHdl;
-	if (am_device_command_write(pIom2->pIomHandle, ADDRESS_SHTC4_2, 2,
-					   command,
-					   false, 0, 0))
-    {
-        error |= ACK_ERROR;
-    }
-
-    // wait until measurement finished
-    //waitInLPMzero(15);
-	//this is very unoptimal, however an easy fix to wait..
-	//am_hal_flash_delay(FLASH_CYCLES_US(15000));
-	timerDelay(15);
-
-    error |= SHTC3_ReadBytesAndCrc(&rawTemp, &rawHum);
-
-    // if no error, calculate temperature in °C and humidity in %RH
-    if (error == NO_ERROR)
-    {
-        *temp2 = SHTC3_CalcTemperature(rawTemp);
-        *humi2 = SHTC3_CalcHumidity(rawHum);
-    }
-		
-		//    error = SHTC3_Wakeup();
-	timerDelay(1);		//give sensor time to wake up to prevent measurement errors
-    // Set sensor in measureing mode (Temperature first, than Humidity)
-    command = MEAS_T_RH_POLLING;
-	am_devices_iom_shtc3_t *pIom3 = (am_devices_iom_shtc3_t *)my_IomdevHdl;
-	if (am_device_command_write(pIom3->pIomHandle, ADDRESS_SHTC4_3, 2,
-					   command,
-					   false, 0, 0))
-    {
-        error |= ACK_ERROR;
-    }
-
-    // wait until measurement finished
-    //waitInLPMzero(15);
-	//this is very unoptimal, however an easy fix to wait..
-	//am_hal_flash_delay(FLASH_CYCLES_US(15000));
-	timerDelay(15);
-
-    error |= SHTC3_ReadBytesAndCrc(&rawTemp, &rawHum);
-
-    // if no error, calculate temperature in °C and humidity in %RH
-    if (error == NO_ERROR)
-    {
-        *temp3 = SHTC3_CalcTemperature(rawTemp);
-        *humi3 = SHTC3_CalcHumidity(rawHum);
+        *temp = SHTC3_CalcTemperature(rawTemp);
+        *humi = SHTC3_CalcHumidity(rawHum);
     }
 
     return error;

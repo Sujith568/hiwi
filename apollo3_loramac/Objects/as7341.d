@@ -47,4 +47,5 @@
   ..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\mcu\apollo3\hal\am_hal_tpiu.h \
   ..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\mcu\apollo3\hal\am_hal_uart.h \
   ..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\mcu\apollo3\hal\am_hal_wdt.h \
-  ..\Library\i2c.h
+  ..\Library\i2c.h \
+  ..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\utils\am_util_stdio.h

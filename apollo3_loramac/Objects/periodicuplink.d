@@ -84,7 +84,8 @@
   ..\Library\adc.h \
   ..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\utils\am_util_delay.h \
   ..\Library\timing.h ..\Library\shtc3.h ..\Library\as7341.h \
-  ..\Library\ina232.h ..\Library\spi.h ..\Lora\apps\LoRaMac\common\cli.h \
+  ..\Library\ina232.h ..\Library\spi.h ..\apollo3_loramac\sht4.h \
+  ..\Lora\apps\LoRaMac\common\cli.h \
   ..\Lora\apps\LoRaMac\common\Commissioning.h \
   ..\Lora\peripherals\soft-se\se-identity.h \
   ..\Lora\apps\LoRaMac\common\NvmDataMgmt.h \

@@ -25,7 +25,6 @@
 
 #include "am_util_stdio.h"	//required for printf operations on console
 #include "am_util_delay.h"
-
 /*!
  * LoRaWAN default end-device class
  */
@@ -216,6 +215,15 @@ void periodicUplink( void )
     BoardInitMcu( );
     BoardInitPeriph( );
 	
+		//periodicUplink();
+	/*sht4_init(my_IomdevHdl, 0x44);  // or 0x45
+
+uint32_t serial;
+if (sht4_read_serial(&serial))
+    am_util_stdio_printf("SHT4x Serial: 0x%08lX\n", serial);
+else
+    am_util_stdio_printf("Failed to read SHT4x serial\n");*/
+	
 	if(!gpioRead(ADC_POWEREXTRA)){
 		NvmDataMgmtFactoryReset();	//reset nvm storage
 	}
@@ -249,7 +257,7 @@ void periodicUplink( void )
 
     LmHandlerJoin( );
 	//once everything is initialized, the system checks if a Device Time Request needs to be executed before measurements can start
-	requireTimeRequest = rtcRead();
+	//requireTimeRequest = rtcRead();
 
     StartTxProcess( LORAMAC_HANDLER_TX_ON_TIMER );
 	

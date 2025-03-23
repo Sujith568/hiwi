@@ -403,7 +403,7 @@ uint32_t initDAC(){
 //!
 //! @return 0 if everything is running correctly, else if not
 //*****************************************************************************
-/*uint32_t boardTest(void){
+uint32_t boardTest(void){
 	int i = 0;
 	//i += device_I2C_init();
 	i += turnOnDAC();
@@ -438,7 +438,7 @@ uint32_t initDAC(){
 	i += turnOffPAM();
 	return i;
 }
-*/
+
 
 //*****************************************************************************
 //
@@ -515,11 +515,12 @@ uint32_t getAdcTempMeasure(void){
 
 uint32_t prepareSensing(void){
 	uint32_t error = 0;
-	error += turnOnPWRSensor();
-	error += turnOnPARLAI();
-	error += turnOnFram();
+	//error += turnOnPWRSensor();
+	//error += turnOnPARLAI();
+	//error += turnOnFram();
+	//sht4x_init(SHT45_I2C_ADDR_44);
 	error += initSpecMeasurement();
-	error += ina232_init();
+	//error += ina232_init();
 	timerDelay(5);
 	return error;
 }

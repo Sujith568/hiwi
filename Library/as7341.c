@@ -17,6 +17,7 @@
 
 #include "i2c.h"
 #include "am_mcu_apollo.h"
+#include "am_util_stdio.h"
 
 typedef struct
 {
@@ -27,65 +28,245 @@ typedef struct
 
 am_devices_iom_as7341_t gAS7341[AM_DEVICES_AS7341_MAX_DEVICE_NUM];	//one device maximum
 
-uint16_t integration_time;
-uint16_t spectralData[12];          //Why 12? -- Dark is also there
-unsigned int spectralDataOld[6];
 bool firstChannels;                 // if true -> F1-F6 is measured.
 
-static float spectral_gain = 4.0;
-
-const float responsivity[12] = {0.16, 0.3, 0.38, 0.48, 0.58, 0.66, 0.75, 1, 0.44, 1, 1.6, 4.44};
 int8_t adcChMap[6]={as_none,as_none,as_none,as_none,as_none,as_none}; //Internal - Maps the SMUX configuration (ADC0 - ADC5 to the corresponding channels back (CH0 - CH8,  Clear, NIR, Flicker)
 
-as7341_status as7341_enable(){
-    // enable power.
-    uint8_t error = 0;          // AS7341_REGADDR_ENABLE = 0x80
+ /***************************************************************************//**
+ * \brief Powers on the spectral sensor.
+ *
+ * To operate the device set bit PON = “1” first.
+ * Note: When bit is set, internal oscillator is activated, allowing timers and ADC channels to operate. 
+ *
+ * \ret		typedef enum as7341_status: SUCCESS, ERROR, ACKNO_ERROR
+ ******************************************************************************/
+as7341_status as7341_enable(void){
 	uint32_t command = 0x01;
 	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
-	if (am_device_command_write(pIom->pIomHandle, ADDRESS_AS7341, 1,
-					   AS7341_REGADDR_ENABLE,	
-					   false, &command, 1))
-    {
-        error |= ACKNO_ERROR;
-    }
-	return error;
-}
-
-as7341_status as7341_readStatusRegister(uint32_t *reg){
 	
-	uint32_t command = STATUS_REG_ADR_AS7341;		// status register
-	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
-    //
-    // Send the command sequence to read the status
-    //
-    if (am_device_command_read(pIom->pIomHandle, ADDRESS_AS7341, 1,
-                           command,
-                           false, reg, 1))
+	if (am_device_command_write(pIom->pIomHandle, AS7341_ADDRESS, 1,
+					   AS7341_REG_ENABLE,	
+					   false, &command, 1))
     {
         return ACKNO_ERROR;
     }
 	return SUCCESS;
 }
 
-as7341_status as7341_readRegister(uint32_t *reg){
-	uint32_t command = 0x93;		// register to read
+ /***************************************************************************//**
+ * \brief Tests communication to the spectral sensor.
+ *
+ * Reads chip ID (0b001001) from ID Register 0x92 and checks if its matches.
+ *
+ * \ret		typedef enum as7341_status: SUCCESS, ERROR, ACKNO_ERROR
+ ******************************************************************************/
+as7341_status as7341_testCommunication(void){
+	uint32_t command = AS7341_REG_ID;
 	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
-    //
-    // Send the command sequence to read the status
-    //
-    if (am_device_command_read(pIom->pIomHandle, ADDRESS_AS7341, 1,
-                           command,
-                           false, reg, 1))
+	uint32_t reg = 0;
+		
+	if (am_device_command_read(pIom->pIomHandle, AS7341_ADDRESS, 1,
+												 command,
+												 false, &reg, 1))
+	{
+			return ACKNO_ERROR;
+	}
+	
+
+
+	
+	// Check if ID matches
+	if((reg & 0xFC) != (AS7341_CHIP_ID << 2)){
+			return ERROR;
+	}
+	return SUCCESS;
+}
+
+ /***************************************************************************//**
+ * \brief Enable the measurement of the spectral sensor.
+ * 
+ * Set start bit SP_EN 0x01 in ENABLE Register 0x80 to enable the measurement of the spectral sensor.
+ * 
+ * \todo first read reg, second set SP_EN bit, third write the register with SP_EN bit.
+ *
+ * \ret		typedef enum as7341_status: SUCCESS, ERROR, ACKNO_ERROR
+ ******************************************************************************/
+as7341_status as7341_startMeasurement(void){
+	uint32_t command = 0x03;
+	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
+	
+	if (am_device_command_write(pIom->pIomHandle, AS7341_ADDRESS, 1,
+					   AS7341_REG_ENABLE,
+					   false, &command, 1))
+	{
+			return ACKNO_ERROR;
+	}
+	return SUCCESS;
+}
+
+ /***************************************************************************//**
+ * \brief Disables the measurement of the spectral sensor.
+ * 
+ * Reset start bit SP_EN 0x01 in ENABLE Register 0x80 to disable the measurement of the spectral sensor.
+ * 
+ * \todo first read reg, second remove SP_EN bit, third write the register without SP_EN bit.
+ *
+ * \ret		typedef enum as7341_status: SUCCESS, ERROR, ACKNO_ERROR
+ ******************************************************************************/
+as7341_status as7341_stopMeasuring(void){
+  // clear SP_EN bit. Power on bit stays set. And wait enable
+	uint32_t command = 0x09;
+	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
+	
+	if (am_device_command_write(pIom->pIomHandle, AS7341_ADDRESS, 1,
+					   AS7341_REG_ENABLE,
+					   false, &command, 1))
     {
         return ACKNO_ERROR;
     }
+	return SUCCESS;
+}
+
+ /***************************************************************************//**
+ * \brief Configures the measurement of the spectral sensor.
+ *
+ * First power up the spectral sensor. Then set atime, astep and gain.
+ *
+ * \param [in] uint8_t atime, 0x00 to 0xFF
+ * \param [in] uint16_t astep, 0x0000 to 0xFFFE
+ * \param [in] as7341_gain_t gain, 0x00 to 0x0A corresponds to 0.5 to 512 gain.
+ *
+ * \ret		typedef enum as7341_status: SUCCESS, ERROR, ACKNO_ERROR
+ ******************************************************************************/
+as7341_status as7341_config(uint8_t atime, uint16_t astep, as7341_gain_t gain) {
+	as7341_status error = 0;
+	
+  error += as7341_enable();
+  error += as7341_setATIME(atime);
+	error += as7341_setASTEP(astep); 
+  error += as7341_setGain(gain); //0x0A = 512
+	
+	return error;
+}
+
+ /***************************************************************************//**
+ * \brief Configures the measurement gain of the spectral sensor.
+ *
+ * \param [in] as7341_gain_t gain, 0x00 to 0x0A corresponds to 0.5 to 512 gain.
+ *
+ * \ret		typedef enum as7341_status: SUCCESS, ERROR, ACKNO_ERROR
+ ******************************************************************************/
+as7341_status as7341_setGain(as7341_gain_t gain){
+	uint32_t command = (uint32_t) gain;
+	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
+	
+	if (am_device_command_write(pIom->pIomHandle, AS7341_ADDRESS, 1,
+					   AS7341_REG_CFG1,
+					   false, &command, 1))
+    {
+        return ACKNO_ERROR;
+    }
+	return SUCCESS;
+}
+
+as7341_status as7341_getGain(uint16_t *reg){
+	uint32_t command = AS7341_REG_CFG1;		// register to read
+	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
+
+	if (am_device_command_read(pIom->pIomHandle, AS7341_ADDRESS, 1,
+												 command,
+												 false, reg, 1))
+	{
+			return ACKNO_ERROR;
+	}
+	return SUCCESS;
+}
+
+as7341_status as7341_setASTEP(uint16_t astep){
+	uint32_t command = (uint32_t) astep;
+	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
+	
+	if (am_device_command_write(pIom->pIomHandle, AS7341_ADDRESS, 1,
+					   AS7341_REG_ASTEP,
+					   false, &command, 2))
+	{
+		return ACKNO_ERROR;
+	}
+	
+	return SUCCESS;
+}
+
+as7341_status as7341_getASTEP(uint32_t *reg){
+	uint32_t command = AS7341_REG_ASTEP;	
+	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
+
+	if (am_device_command_read(pIom->pIomHandle, AS7341_ADDRESS, 1,
+												 command,
+												 false, reg, 2))
+	{
+			return ACKNO_ERROR;
+	}
+	return SUCCESS;
+}
+
+as7341_status as7341_setATIME(uint8_t atime){         
+	uint32_t command = (uint32_t) atime;
+	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
+	
+	if (am_device_command_write(pIom->pIomHandle, AS7341_ADDRESS, 1,
+					 AS7341_REG_ATIME,
+					 false, &command, 1))
+	{
+			return ACKNO_ERROR;
+	}
+	return SUCCESS;
+}
+
+as7341_status as7341_getATIME(uint32_t *reg){
+	uint32_t command = AS7341_REG_ATIME;	
+	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
+
+	if (am_device_command_read(pIom->pIomHandle, AS7341_ADDRESS, 1,
+												 command,
+												 false, reg, 1))
+	{
+			return ACKNO_ERROR;
+	}
+	return SUCCESS;
+}
+
+as7341_status as7341_getTINT(double *reg){
+	uint32_t astep, atime;
+	uint32_t error = SUCCESS;
+	double result = 0;
+	
+  error += as7341_getASTEP(&astep);
+  error += as7341_getATIME(&atime);
+	
+	astep = astep & 0xFFFF;
+	atime = atime & 0xFFFF;
+
+  *reg = ((double)atime + 1.0) * ((double)astep + 1.0) * 2.78 / 1000.0;
+	
+	return error;
+}
+
+as7341_status as7341_readRegister(uint32_t reg, uint32_t *data){
+	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
+
+	if (am_device_command_read(pIom->pIomHandle, AS7341_ADDRESS, 1,
+												 reg,
+												 false, data, 1))
+	{
+			return ACKNO_ERROR;
+	}
 	return SUCCESS;
 }
 
 as7341_status as7341_clearInterrupt(uint8_t flags){
 	uint32_t command = flags;
 	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
-	if (am_device_command_write(pIom->pIomHandle, ADDRESS_AS7341, 1,
+	if (am_device_command_write(pIom->pIomHandle, AS7341_ADDRESS, 1,
 					   0x93,	
 					   false, &command, 1))
     {
@@ -95,6 +276,46 @@ as7341_status as7341_clearInterrupt(uint8_t flags){
 	
 }
 
+
+as7341_status as7341_convertGain(uint16_t *gain)
+{
+	switch (*gain) {
+  case AS7341_AGAIN_05:
+    *gain = 0;
+    break;
+  case AS7341_AGAIN_1:
+    *gain = 1;
+    break;
+  case AS7341_AGAIN_2:
+    *gain = 2;
+    break;
+  case AS7341_AGAIN_4:
+    *gain = 4;
+    break;
+  case AS7341_AGAIN_8:
+    *gain = 8;
+    break;
+  case AS7341_AGAIN_16:
+    *gain = 16;
+    break;
+  case AS7341_AGAIN_32:
+    *gain = 32;
+    break;
+  case AS7341_AGAIN_64:
+    *gain = 64;
+    break;
+  case AS7341_AGAIN_128:
+    *gain = 128;
+    break;
+  case AS7341_AGAIN_256:
+    *gain = 256;
+    break;
+  case AS7341_AGAIN_512:
+    *gain = 512;
+    break;
+  }
+	return SUCCESS;
+}
 
 /**
  * This function configures the ADC to Diodes mapping according to predefined sets
@@ -244,7 +465,7 @@ as7341_status as7341_writeSMUXmapping(uint8_t listId){
 		regvalbuf32[i/4] |= (regvalbuf[i+1]<<(8*(i%4)));
 	}
 	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
-	if (am_device_command_write(pIom->pIomHandle, ADDRESS_AS7341, 1,
+	if (am_device_command_write(pIom->pIomHandle, AS7341_ADDRESS, 1,
 					   0x00,
 					   false, regvalbuf32, 20))
     {
@@ -255,51 +476,31 @@ as7341_status as7341_writeSMUXmapping(uint8_t listId){
     regval[0] = 0xAF;                   // AS7341_REGADDR_CFG6 = 0xAF
     regval[1] = 0x10;
 	uint32_t command = 0x10;
-	if (am_device_command_write(pIom->pIomHandle, ADDRESS_AS7341, 1,
+	if (am_device_command_write(pIom->pIomHandle, AS7341_ADDRESS, 1,
 					   0xAF,
 					   false, &command, 1))
     {
         error |= ACKNO_ERROR;
     }
-    //i2ctransmit(ADDRESS_AS7341, &regval[0], 2);
 	
 
     // power on, start smux command
     regval[0] = 0x80;
     regval[1] = 0x11;               // AS7341 ENABLE REGISTER = 0x80
 	command = 0x11;
-	if (am_device_command_write(pIom->pIomHandle, ADDRESS_AS7341, 1,
+	if (am_device_command_write(pIom->pIomHandle, AS7341_ADDRESS, 1,
 					   0x80,
 					   false, &command, 1))
     {
         error |= ACKNO_ERROR;
     }
 	
-    //i2ctransmit(ADDRESS_AS7341, &regval[0], 2);
 	return error;
 }
 
 
 
-as7341_status as7341_startMeasurement(bool flicker, bool wait){
-    uint8_t regval[2];
-    regval[0] = 0x80;               // AS7341 ENABLE REGISTER = 0x80
-    regval[1] = 0x03;
-    if(flicker)
-        regval[1] |= 0x40;
-    if(wait)
-        regval[1] |= 0x08;
 
-	uint32_t command = regval[1];
-	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
-	if (am_device_command_write(pIom->pIomHandle, ADDRESS_AS7341, 1,
-					   0x80,
-					   false, &command, 1))
-    {
-        return ACKNO_ERROR;
-    }
-	return SUCCESS;
-}
 /**
  * Sets wait time in WTIME register (0x83). Wait time can be set in 2,78ms steps from 2,78ms (0x00) to 711ms (0xff)
  *
@@ -311,14 +512,13 @@ as7341_status as7341_setWaitTime(uint8_t wtime){
 	
 	uint32_t command = regval[1];
 	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
-	if (am_device_command_write(pIom->pIomHandle, ADDRESS_AS7341, 1,
+	if (am_device_command_write(pIom->pIomHandle, AS7341_ADDRESS, 1,
 					   0x83,
 					   false, &command, 1))
     {
         return ACKNO_ERROR;
     }
 	return SUCCESS;
-    //i2ctransmit(ADDRESS_AS7341, &regval[0], 2);
 }
 
 as7341_status as7341_setInterruptMode(){
@@ -329,13 +529,13 @@ as7341_status as7341_setInterruptMode(){
     regval[1] = 0x00;           //set Sync to interrupt pin, SPM mode
 	uint32_t command = regval[1];
 	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
-	if (am_device_command_write(pIom->pIomHandle, ADDRESS_AS7341, 1,
+	if (am_device_command_write(pIom->pIomHandle, AS7341_ADDRESS, 1,
 					   0x70,
 					   false, &command, 1))
     {
         error |= ACKNO_ERROR;
     }
-    if (am_device_command_read(pIom->pIomHandle, ADDRESS_AS7341, 1,
+    if (am_device_command_read(pIom->pIomHandle, AS7341_ADDRESS, 1,
                            0x80,
                            false, receive, 1))
     {
@@ -345,7 +545,7 @@ as7341_status as7341_setInterruptMode(){
     regval[1] = 0x06;           //GPIO input enable, GPIO input
 	command = regval[1];
 	pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
-	if (am_device_command_write(pIom->pIomHandle, ADDRESS_AS7341, 1,
+	if (am_device_command_write(pIom->pIomHandle, AS7341_ADDRESS, 1,
 					   0xBE,
 					   false, &command, 1))
     {
@@ -354,7 +554,7 @@ as7341_status as7341_setInterruptMode(){
 	regval[0] = 0xF9;
 	regval[1] = 0x05;		//enable interrupt for FIFO and SMUX
 	command = regval[1];
-	if (am_device_command_write(pIom->pIomHandle, ADDRESS_AS7341, 1,
+	if (am_device_command_write(pIom->pIomHandle, AS7341_ADDRESS, 1,
 					   0xF9,
 					   false, &command, 1))
     {
@@ -363,7 +563,7 @@ as7341_status as7341_setInterruptMode(){
 	regval[0] = 0xB2;
 	regval[1] = 0x10;		//enable interrupt for FIFO and SMUX
 	command = regval[1];
-	if (am_device_command_write(pIom->pIomHandle, ADDRESS_AS7341, 1,
+	if (am_device_command_write(pIom->pIomHandle, AS7341_ADDRESS, 1,
 					   0xB2,
 					   false, &command, 1))
     {
@@ -372,7 +572,7 @@ as7341_status as7341_setInterruptMode(){
 	regval[0] = 0xFC;
 	regval[1] = 0x7E;		//enable FIFO storage for all 6 channels
 	command = regval[1];
-	if (am_device_command_write(pIom->pIomHandle, ADDRESS_AS7341, 1,
+	if (am_device_command_write(pIom->pIomHandle, AS7341_ADDRESS, 1,
 					   0xFC,
 					   false, &command, 1))
     {
@@ -381,7 +581,7 @@ as7341_status as7341_setInterruptMode(){
 	regval[0] = 0xB1;
 	regval[1] = 0x48;		//enable FIFO threshold lvl is 4
 	command = regval[1];
-	if (am_device_command_write(pIom->pIomHandle, ADDRESS_AS7341, 1,
+	if (am_device_command_write(pIom->pIomHandle, AS7341_ADDRESS, 1,
 					   0xB1,
 					   false, &command, 1))
     {
@@ -390,7 +590,7 @@ as7341_status as7341_setInterruptMode(){
 	regval[0] = 0xFA;
 	regval[1] = 0x02;		//Clear fifo
 	command = regval[1];
-	if (am_device_command_write(pIom->pIomHandle, ADDRESS_AS7341, 1,
+	if (am_device_command_write(pIom->pIomHandle, AS7341_ADDRESS, 1,
 					   0xFA,
 					   false, &command, 1))
     {
@@ -399,351 +599,115 @@ as7341_status as7341_setInterruptMode(){
 	
 	return error;
 }
-/**
- * Sets integration time. Integration time = (ASTEP + 1) * ( ATIME + 1)*2.78us. Recommended value: 50 ms.
- * ATIME is set to zero, and therefore the time is determined by ASTEP, here it is set to 100 ms
- *
- */
-as7341_status as7341_setIntegrationTime(){
-    // set ATIME first to 1
-    uint8_t regval[3];
-	uint8_t error = 0;
-    regval[0] = 0x81;
-    regval[1] = 0x00;           //1 * 65534 *2,78ï¿½s = 182ms
-	uint32_t command = regval[1];
-	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
-	if (am_device_command_write(pIom->pIomHandle, ADDRESS_AS7341, 1,
-					   0x81,
-					   false, &command, 1))
-    {
-        error |= ACKNO_ERROR;
-    }
 
-    //i2ctransmit(ADDRESS_AS7341, &regval[0], 2);
-    // then set ASTEP. E.G. STEP = 35970 -> integration time = 100ms.
-    regval[0] = 0xca;
-    //regval[1] = 0x94;           // 0x2A94 = 10900.
-    //regval[2] = 0x2A;
-    //regval[1] = 0x4F;           // 0x464F = 17999.
-    //regval[2] = 0x46;
-    //regval[1] = 0x54;           // 0x5554 = 21844.
-    //regval[2] = 0x55;
-    //regval[1] = 0xF8;           // 0x7FF8 = 32761.
-    //regval[2] = 0x7F;
-    //regval[1] = 0xFE;           // 0xFFFE = 65534.
-    //regval[2] = 0xFF;
-    regval[1] = 0x82;          // 0x8C82 = 35970.
-    regval[2] = 0x8C;
-    //regval[1] = 0x40;          // 0x4640 = 17985.
-    //regval[2] = 0x46;
-	command = regval[1] + (regval[2]<<8);
-	if (am_device_command_write(pIom->pIomHandle, ADDRESS_AS7341, 1,
-					   0xCA,
-					   false, &command, 2))
-    {
-        error |= ACKNO_ERROR;
-    }
-    //i2ctransmit(ADDRESS_AS7341, &regval[0], 3);
-    integration_time = 100;
-	return error;
-}
-
-as7341_status as7341_setATIME(uint8_t times){
-    uint8_t regval[2];
-    regval[0] = 0x81;
-    regval[1] = times;           //times * ASTEP *2,78ï¿½s = Integration time
-	uint32_t command = regval[1];
-	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
-	if (am_device_command_write(pIom->pIomHandle, ADDRESS_AS7341, 1,
-					   0x81,
-					   false, &command, 1))
-    {
-        return ACKNO_ERROR;
-    }
-	return SUCCESS;
-    //i2ctransmit(ADDRESS_AS7341, &regval[0], 2);
-}
-as7341_status as7341_setASTEP(int i){
-    uint8_t regval[3];
-	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
-	uint8_t error = 0;
-    regval[0] = 0xca;
-    switch(i) {
-    case 0:
-        regval[1] = 0x18;
-        regval[2] = 0x01;   // 1*281*2,78ï¿½s = 0,7ms
-        integration_time = 2;
-        break;
-    case 1:
-        regval[1] = 0x31;
-        regval[2] = 0x02;   // 1*562*2,78ï¿½s = 1,6ms
-        integration_time = 3;
-        break;
-    case 2:
-        regval[1] = 0x63;
-        regval[2] = 0x04;   // 1*1124*2,78ï¿½s = 3,125ms
-        integration_time = 6;
-        break;
-    case 3:
-        regval[1] = 0xC7;
-        regval[2] = 0x08;   // 1*2248*2,78ï¿½s = 6,25ms
-        integration_time = 13;
-        break;
-    case 4:
-         regval[1] = 0x8F;
-         regval[2] = 0x11;   // 1*4496*2,78ï¿½s = 12,5ms
-         integration_time = 25;
-         break;
-    case 5:
-         regval[1] = 0x1F;
-         regval[2] = 0x23;   // 1*8992*2,78ï¿½s = 25ms
-         integration_time = 50;
-         break;
-    case 6:
-         regval[1] = 0x40;
-         regval[2] = 0x46;   // 1*17985*2,78ï¿½s = 50ms
-         integration_time = 100;
-         break;
-    case 7:
-         regval[1] = 0x82;
-         regval[2] = 0x8C;   // 1*35971*2,78ï¿½s = 100ms
-         integration_time = 182;
-         break;
-    case 8:
-         regval[1] = 0xFE;
-         regval[2] = 0xFF;   // 1*65535*2,78ï¿½s = 182m
-         integration_time = 182;
-         break;
-    }
-	uint32_t command = regval[1] + (regval[2]<<8);
-	if (am_device_command_write(pIom->pIomHandle, ADDRESS_AS7341, 1,
-					   0xCA,
-					   false, &command, 2))
-	{
-		error |= ACKNO_ERROR;
-	}
-	return error;
-}
-
-
-//void as7341_readMeasurementsOld(){
-//    uint8_t regval = 0x95; // status register.
-//    uint8_t *ptrg = &regval;
-//    i2ctransmit(ADDRESS_AS7341, ptrg, 1);
-//    i2creceive(ADDRESS_AS7341, 12);
-//    int i;
-//    for(i = 0; i < 6; i++) {
-//        spectralDataOld[i] = I2CRXData[(2*i)];
-//        spectralDataOld[i] += (I2CRXData[(2*i+1)]<<8);
-
-//    }
-//}
-
-/**
- *
- */
-//FixMe: Bad style: result is dependent on variable that is not documented and very unflexible, use the new one
-as7341_status as7341_readMeasurements(){
-    uint8_t regval = 0x95; // status register.
-    uint8_t *ptrg = &regval;
-	uint32_t command;
-	uint32_t receive[3];
-
-    //
-    command = regval;
-	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
-
-    if (am_device_command_read(pIom->pIomHandle, ADDRESS_AS7341, 1,
-                           command,
-                           false, receive, 12))
-    {
-        return ACKNO_ERROR;
-    }
-    //i2ctransmit(ADDRESS_AS7341, ptrg, 1);
-    //i2creceive(ADDRESS_AS7341, 12);
-    unsigned int temp;
-    //float divider;
-    int i;
-    if (firstChannels){
-        for(i = 0; i < 3; i++) {
-            temp = receive[i];
-            temp += (receive[i]<<8);
-            //divider = spectral_gain * integration_time;
-            //spectralData[i] = (temp/divider);       // basic counts
-            spectralData[(2*i)] = temp;
-			temp = receive[i]<<16;
-			temp += receive[i]<<24;
-			spectralData[(2*i + 1)] = temp;
-        }
-    } else {
-        for(i = 0; i < 6; i++) {
-            temp = receive[i];
-            temp += (receive[i]<<8);
-            //divider = spectral_gain * integration_time;
-            //spectralData[i+6] = (temp/divider);       // basic counts
-            spectralData[(2*i+6)] = temp;
-			temp = receive[i]<<16;
-			temp += receive[i]<<24;
-			spectralData[(2*i + 1 + 6)] = temp;
-        }
-    }
-	return SUCCESS;
-}
-
-as7341_status as7341_transmitMeasurements(){
-    uint8_t regval = 0x95; // status register.
-    uint8_t *ptrg = &regval;
-	uint32_t command;
-	uint32_t receive[3];
-
-    //
-    command = regval;
-	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
-
-    if (am_device_command_read(pIom->pIomHandle, ADDRESS_AS7341, 1,
-                           command,
-                           false, receive, 12))
-    {
-        return ACKNO_ERROR;
-    }
-    //i2ctransmit(ADDRESS_AS7341, ptrg, 1);
-    //i2creceive(ADDRESS_AS7341, 12);
-    unsigned int temp;
-    //float divider;
-    int i;
-    //--- Read out the ADCs 0 - 5 and map them to the corresponding position in spectralData
-        for(i = 0; i < 3; i++) {
-            temp = receive[i] & 0xFF;
-            temp += (receive[i]>>8) << 8;
-            //divider = spectral_gain * integration_time;
-            //spectralData[i] = (temp/divider);       // basic counts
-            if(adcChMap[2*i]!=as_none){
-                spectralData[adcChMap[2*i]] = temp;
-            }
-			temp = (receive[i]>>16) & 0xFF;
-			temp += (receive[i]>>24) << 8;
-			if(adcChMap[2*i + 1]!=as_none){
-                spectralData[adcChMap[2*i + 1]] = temp;
-            }
-        }
-	return SUCCESS;
-}
-
-as7341_status as7341_transmitMeasurementsFIFO(uint16_t *buffer){		//caution: check here again that the values are correctly added after reading which is currently missing
-    uint8_t regval = 0x95; // status register.
-    uint8_t *ptrg = &regval;
-	uint32_t command;
-	uint32_t receive[4];
-	uint32_t channels[6];
+as7341_status as7341_setTINT(uint8_t atime, uint16_t astep){
+	as7341_status error = SUCCESS;
 	
-	uint32_t reg;
-	as7341_readRegister(&reg);
-	as7341_clearInterrupt(reg);
-    //
-    command = 0xFE;
+	error |= as7341_setATIME(atime);
+	error |= as7341_setASTEP(astep);
+	
+	return error;
+}
+
+
+
+as7341_status as7341_transmitMeasurements(uint16_t *data){
+	uint32_t receive[3];
 	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
-	for(int i = 0; i< 6; i++){
-		if (am_device_command_read(pIom->pIomHandle, ADDRESS_AS7341, 1,
-                           command,
-                           false, (uint32_t*) buffer, 2))
-		{
+
+	if (am_device_command_read(pIom->pIomHandle, AS7341_ADDRESS, 1,
+												 AS7341_REG_STATUS,
+												 false, receive, 12))
+	{
 			return ACKNO_ERROR;
+	}
+	
+	uint32_t temp;
+	
+	//--- Read out the ADCs 0 - 5 and map them to the corresponding position in spectralData
+	for(uint8_t i = 0; i < 3; i++) {
+		
+		temp = receive[i] & 0xFF;
+		temp += (receive[i]>>8) << 8;
+		if(adcChMap[2*i]!=as_none){
+				data[adcChMap[2*i]] = temp;
 		}
-		buffer++;
+		
+		temp = (receive[i]>>16) & 0xFF;
+		temp += (receive[i]>>24) << 8;
+		if(adcChMap[2*i + 1]!=as_none){
+							data[adcChMap[2*i + 1]] = temp;
+					}
+			}
+	
+	return SUCCESS;
+}
+
+
+
+
+
+// todo: STOP condition
+as7341_status as7341_delayForData(void)
+{
+	uint32_t command = AS7341_REG_STATUS2;		// register to read
+	uint32_t reg = 0;
+	uint32_t ready = 0;
+	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
+	
+	while(!ready)
+	{
+    //
+    // Send the command sequence to read the status
+    //
+    if (am_device_command_read(pIom->pIomHandle, AS7341_ADDRESS, 1,
+                           command,
+                           false, &reg, 1))
+    {
+        return ACKNO_ERROR;
+    }
+		
+		if((reg & 0x40))
+		{
+			ready = 1;
+			return SUCCESS;
+		}
+		
+		timerDelay(10);
 		
 	}
 	return SUCCESS;
 }
 
-as7341_status as7341_setGain(uint8_t gain){
-    uint8_t regval[2];
-    regval[0] = 0xAA;             // CFG1 register.
-    regval[1] = gain;           // Gain settings.
-	uint32_t command = regval[1];
-	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
-	if (am_device_command_write(pIom->pIomHandle, ADDRESS_AS7341, 1,
-					   0xAA,
-					   false, &command, 1))
-    {
-        return ACKNO_ERROR;
-    }
 
-    //i2ctransmit(ADDRESS_AS7341, &regval[0], 2);
-
-    switch(gain) {
-        case 0x00: spectral_gain = 0.5; break;
-        case 0x01: spectral_gain = 1.0; break;
-        case 0x02: spectral_gain = 2.0; break;
-        case 0x03: spectral_gain = 4.0; break;
-        case 0x04: spectral_gain = 8.0; break;
-        case 0x05: spectral_gain = 16.0; break;
-        case 0x06: spectral_gain = 32.0; break;
-        case 0x07: spectral_gain = 64.0; break;
-        case 0x08: spectral_gain = 128.0; break;
-        case 0x09: spectral_gain = 256.0; break;
-        case 0x0A: spectral_gain = 512.0; break;
-    }
-	return SUCCESS;
-}
-
-float as7341_getSpectralGain()
+// todo: STOP condition
+as7341_status as7341_delayForSMUX(void)
 {
-    return spectral_gain;
-}
-
-as7341_status as7341_stopMeasuring(){
-    // clear SP_EN bit. Power on bit stays set. And wait enable
-    uint8_t regval[] = {AS7341_REGADDR_ENABLE, 0x09};          // AS7341_REGADDR_ENABLE = 0x80
-	uint32_t command = regval[1];
-	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
-	if (am_device_command_write(pIom->pIomHandle, ADDRESS_AS7341, 1,
-					   AS7341_REGADDR_ENABLE,
-					   false, &command, 1))
-    {
-        return ACKNO_ERROR;
-    }
-	return SUCCESS;
-}
-
-unsigned int as7341_testCommunication(){
-    uint8_t g = ID_REG_ADR_AS7341; // status register.
-    uint8_t *ptrg = &g;
-	uint32_t command = ID_REG_ADR_AS7341;
-	uint32_t receive = 0;
-	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
-
-    if (am_device_command_read(pIom->pIomHandle, ADDRESS_AS7341, 1,
-                           command,
-                           false, &receive, 1))
-    {
-        return ACKNO_ERROR;
-    }
-    if(receive == ID_AS7341_DEC){
-        return 1;
-    }
-    return 0;
-}
-
-void as7341_config() {
-    as7341_enable();
-	timerDelay(20);
-    as7341_setIntegrationTime();        //Sets the integration time to 100ms with ATIME =0
-	timerDelay(20);
-    as7341_setWaitTime(0xff);
-	timerDelay(20);
-	as7341_setInterruptMode();
-}
-
-void as7341_takeResponsivityIntoAccount(){
-    int i;
-    for(i = 0; i < 12; i++){
-        spectralData[i] = spectralData[i]/responsivity[i];
-    }
-}
-
-void as7341IRQ(){
-	as7341_stopMeasuring();
+	uint32_t command = AS7341_REG_ENABLE;		// register to read
 	uint32_t reg = 0;
-	as7341_readRegister(&reg);
-	as7341_clearInterrupt(reg);
+	uint32_t ready = 0;
+	am_devices_iom_as7341_t *pIom = (am_devices_iom_as7341_t *)my_IomdevHdl;
+	
+	while(!ready)
+	{
+    //
+    // Send the command sequence to read the status
+    //
+    if (am_device_command_read(pIom->pIomHandle, AS7341_ADDRESS, 1,
+                           command,
+                           false, &reg, 1))
+    {
+        return ACKNO_ERROR;
+    }
+		
+		if(!(reg & 0x10))
+		{
+			ready = 1;
+			return SUCCESS;
+		}
+		
+		timerDelay(10);
+		
+	}
+	return SUCCESS;
 }

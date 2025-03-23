@@ -75,4 +75,5 @@
   ..\Library\adc.h \
   ..\AmbiqSuite-SDK-v3-1-1\AmbiqSuite_R3.1.1\utils\am_util_delay.h \
   ..\Library\timing.h ..\Library\shtc3.h ..\Library\am1805.h \
-  ..\Library\as7341.h ..\Library\ina232.h ..\Library\spi.h
+  ..\Library\as7341.h ..\Library\ina232.h ..\Library\spi.h \
+  ..\apollo3_loramac\sht4.h

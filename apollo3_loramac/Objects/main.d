@@ -95,5 +95,5 @@
   ..\Lora\mac\LoRaMacHeaderTypes.h ..\Lora\mac\region\Region.h \
   ..\Lora\boards\Apollo3_V2\transmitConfig.h ..\Lora\radio\radio.h \
   ..\Library\taskHandler.h ..\Library\device.h ..\Library\adc.h \
-  ..\Library\ina232.h ..\Lora\apps\LoRaMac\common\NvmDataMgmt.h \
-  JalapenosLpp.h
+  ..\Library\ina232.h ..\apollo3_loramac\sht4.h \
+  ..\Lora\apps\LoRaMac\common\NvmDataMgmt.h JalapenosLpp.h
